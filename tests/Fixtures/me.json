@@ -1,0 +1,31 @@
+{
+    "authKind": "oauth",
+    "environment": "sample:Me.environment",
+    "organization": {
+        "id": "00000000-0000-4000-8000-000786687180",
+        "name": "sample:Me.organization.name",
+        "slug": "sample:Me.organization.slug",
+        "status": "ACTIVE"
+    },
+    "client": {
+        "clientId": "sample:Me.client.clientId",
+        "name": "sample:Me.client.name"
+    },
+    "scopes": [
+        "sample:Me.scopes[]"
+    ],
+    "plan": {
+        "code": "FREE",
+        "name": "sample:Me.plan.name",
+        "subscriptionStatus": "TRIALING",
+        "documentsPerMonth": 2.5,
+        "documentsThisPeriod": 2.5,
+        "signersPerRequest": 2.5,
+        "periodStart": "2026-10-22T10:30:00.000Z",
+        "periodEnd": "2026-10-22T10:30:00.000Z"
+    },
+    "rateLimits": {
+        "requestsPerMinute": 2.5,
+        "expensivePerMinute": 2.5
+    }
+}

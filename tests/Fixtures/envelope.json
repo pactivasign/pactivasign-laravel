@@ -1,0 +1,57 @@
+{
+    "id": "0a1b2c3d-0000-4000-8000-000000000001",
+    "name": "sample:Envelope.name",
+    "status": "SENT",
+    "version": 2.5,
+    "externalId": "sample:Envelope.externalId",
+    "metadata": {
+        "key": "value"
+    },
+    "sequential": true,
+    "expiresAt": "2026-10-22T10:30:00.000Z",
+    "createdAt": "2026-10-22T10:30:00.000Z",
+    "updatedAt": "2026-10-22T10:30:00.000Z",
+    "completedAt": "2026-10-22T10:30:00.000Z",
+    "declinedAt": "2026-10-22T10:30:00.000Z",
+    "voidedAt": "2026-10-22T10:30:00.000Z",
+    "voidReason": "sample:Envelope.voidReason",
+    "packetDocumentId": "00000000-0000-4000-8000-001991064010",
+    "documents": [
+        {
+            "id": "00000000-0000-4000-8000-003547508953",
+            "name": "sample:Envelope.documents[].name",
+            "position": 2.5,
+            "pageCount": 2.5,
+            "status": "DRAFT"
+        }
+    ],
+    "recipients": [
+        {
+            "id": "00000000-0000-4000-8000-003525648164",
+            "email": "jo@example.com",
+            "name": "sample:Envelope.recipients[].name",
+            "roleName": "sample:Envelope.recipients[].roleName",
+            "signingOrder": 2.5,
+            "status": "CREATED",
+            "sentAt": "2026-10-22T10:30:00.000Z",
+            "viewedAt": "2026-10-22T10:30:00.000Z",
+            "signedAt": "2026-10-22T10:30:00.000Z",
+            "declinedAt": "2026-10-22T10:30:00.000Z",
+            "declineReason": "sample:Envelope.recipients[].declineReason"
+        }
+    ],
+    "ccRecipients": [
+        {
+            "id": "00000000-0000-4000-8000-000008808360",
+            "email": "jo@example.com",
+            "name": "sample:Envelope.ccRecipients[].name",
+            "roleName": "sample:Envelope.ccRecipients[].roleName"
+        }
+    ],
+    "signingRequest": {
+        "id": "00000000-0000-4000-8000-004035775140",
+        "status": "PENDING",
+        "sequential": true,
+        "expiresAt": "2026-10-22T10:30:00.000Z"
+    }
+}

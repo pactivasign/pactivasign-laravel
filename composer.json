@@ -1,0 +1,83 @@
+{
+    "name": "pactivasign/pactivasign-laravel",
+    "description": "Laravel integration for the PactivaSign e-signature API: configuration, facade, verified webhooks as Laravel events, and artisan commands.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "pactivasign",
+        "laravel",
+        "e-signature",
+        "esign",
+        "webhooks"
+    ],
+    "homepage": "https://github.com/pactivasign/pactivasign-laravel",
+    "support": {
+        "issues": "https://github.com/pactivasign/pactivasign-laravel/issues",
+        "source": "https://github.com/pactivasign/pactivasign-laravel"
+    },
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.8",
+        "guzzlehttp/psr7": "^2.6",
+        "illuminate/console": "^12.0 || ^13.0",
+        "illuminate/contracts": "^12.0 || ^13.0",
+        "illuminate/database": "^12.0 || ^13.0",
+        "illuminate/http": "^12.0 || ^13.0",
+        "illuminate/routing": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0",
+        "pactivasign/pactivasign-php": "^0.1@dev"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0 || ^11.0",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^11.5"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../pactivasign-php",
+            "options": {
+                "symlink": true,
+                "versions": {
+                    "pactivasign/pactivasign-php": "0.1.x-dev"
+                }
+            }
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PactivaSign\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PactivaSign\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PactivaSign\\Laravel\\PactivaSignServiceProvider"
+            ],
+            "aliases": {
+                "PactivaSign": "PactivaSign\\Laravel\\Facades\\PactivaSign"
+            }
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "check": [
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
