@@ -16,6 +16,7 @@ use PactivaSign\Laravel\Testing\PactivaSignFake;
  * @method static \PactivaSign\Resource\WebhookSubscriptions webhookSubscriptions()
  * @method static \PactivaSign\Resource\WebhookDeliveries webhookDeliveries()
  * @method static \PactivaSign\Resource\Me me()
+ * @method static \PactivaSign\Resource\Sandbox sandbox()
  * @method static \PactivaSign\Http\Response request(string $method, string $path, array<string, mixed> $options = [])
  * @method static string authenticate()
  * @method static void forgetToken()

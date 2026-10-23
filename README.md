@@ -27,7 +27,7 @@ git) and prints the public key. Your PactivaSign organization admin registers th
 client and gives you its client ID. Then set:
 
 ```dotenv
-PACTIVASIGN_BASE_URL=https://pactiva-api.duckdns.org
+PACTIVASIGN_BASE_URL=https://pactiva-sandbox-api.pactivasign.com
 PACTIVASIGN_CLIENT_ID=pcl_...
 PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
 ```
