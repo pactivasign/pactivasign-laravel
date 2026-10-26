@@ -11,6 +11,9 @@ All notable changes to this package are documented here. The format follows
 ### Fixed
 
 - Installs on a new Laravel 13 app: allow Guzzle 8 and guzzlehttp/psr7 3, which Laravel 13 ships with.
+- Webhooks on Laravel 13 were rejected with 419: the route now also skips `PreventRequestForgery`, Laravel 13's
+  CSRF middleware.
+- `pactivasign:webhook-test` explains a missing `PACTIVASIGN_WEBHOOK_SECRET` instead of throwing.
 
 ## [0.1.0] - 2026-10-26
 

@@ -43,6 +43,17 @@ final class WebhookTest extends TestCase
         });
     }
 
+    public function testTheRouteSkipsCsrfProtectionOfTheWebGroup(): void
+    {
+        // Laravel turns CSRF checks off while running tests; switch them back on.
+        $this->app['env'] = 'local';
+        \Illuminate\Support\Facades\Route::middleware('web')->post('/csrf-protected', fn () => 'ok');
+        [$body, $server] = PactivaSignFake::webhook();
+
+        $this->call('POST', '/csrf-protected', server: $server, content: $body)->assertStatus(419);
+        $this->call('POST', '/pactivasign/webhook', server: $server, content: $body)->assertOk();
+    }
+
     public function testRepeatedDeliveriesAreAcknowledgedButHandledOnce(): void
     {
         Event::fake([WebhookReceived::class]);

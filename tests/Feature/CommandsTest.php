@@ -72,6 +72,15 @@ final class CommandsTest extends TestCase
             ->assertFailed();
     }
 
+    public function testWebhookTestExplainsAMissingSecret(): void
+    {
+        config(['pactivasign.webhooks.secret' => null]);
+
+        $this->artisan('pactivasign:webhook-test')
+            ->expectsOutputToContain('PACTIVASIGN_WEBHOOK_SECRET')
+            ->assertFailed();
+    }
+
     public function testWebhookTestSendsASignedEventThroughTheRoute(): void
     {
         Event::fake([RecipientViewed::class]);

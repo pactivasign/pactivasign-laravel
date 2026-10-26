@@ -70,6 +70,8 @@ final class PactivaSignServiceProvider extends ServiceProvider
             return Route::post($uri, WebhookController::class)
                 ->middleware('pactivasign.webhook')
                 ->withoutMiddleware([
+                    // Laravel 13 renamed CSRF protection; the older names are now its subclasses.
+                    \Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class,
                     \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
                     \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
                 ])

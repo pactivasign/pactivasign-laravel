@@ -32,6 +32,12 @@ final class WebhookTestCommand extends Command
             return self::FAILURE;
         }
 
+        if (!is_string(config('pactivasign.webhooks.secret')) || config('pactivasign.webhooks.secret') === '') {
+            $this->error('No webhook secret. Set PACTIVASIGN_WEBHOOK_SECRET (any value works for this local test).');
+
+            return self::FAILURE;
+        }
+
         [$body, $server] = PactivaSignFake::webhook(['type' => $type]);
         $uri = route('pactivasign.webhook', absolute: false);
         $kernel = $this->laravel->make(Kernel::class);
