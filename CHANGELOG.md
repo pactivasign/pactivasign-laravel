@@ -6,6 +6,11 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-26
+
+First public release, for Laravel 12 and 13 with `pactivasign/pactivasign-php` 0.1. Pre-1.0: minor versions may
+contain breaking changes.
+
 ### Added
 
 - Auto-discovered service provider and `PactivaSign` facade; `PactivaSign\Client` resolvable from the container.
@@ -18,3 +23,6 @@ All notable changes to this package are documented here. The format follows
 - Stored deliveries pruned after 30 days by `model:prune`.
 - Commands: `pactivasign:keys`, `pactivasign:test`, `pactivasign:webhook-test`.
 - `PactivaSign::fake()` for tests, with request assertions and signed webhook payloads.
+
+[Unreleased]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/pactivasign/pactivasign-laravel/releases/tag/v0.1.0
