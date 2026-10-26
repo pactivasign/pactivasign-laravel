@@ -17,8 +17,8 @@
     },
     "require": {
         "php": "^8.2",
-        "guzzlehttp/guzzle": "^7.8",
-        "guzzlehttp/psr7": "^2.6",
+        "guzzlehttp/guzzle": "^7.8 || ^8.0",
+        "guzzlehttp/psr7": "^2.6 || ^3.0",
         "illuminate/console": "^12.0 || ^13.0",
         "illuminate/contracts": "^12.0 || ^13.0",
         "illuminate/database": "^12.0 || ^13.0",
