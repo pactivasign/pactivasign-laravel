@@ -6,6 +6,8 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-30
+
 ### Changed
 
 - `pactivasign:test` first checks that the cache store can take the lock used for token refresh. If it cannot,
@@ -48,7 +50,8 @@ contain breaking changes.
 - Commands: `pactivasign:keys`, `pactivasign:test`, `pactivasign:webhook-test`.
 - `PactivaSign::fake()` for tests, with request assertions and signed webhook payloads.
 
-[Unreleased]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/pactivasign/pactivasign-laravel/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/pactivasign/pactivasign-laravel/releases/tag/v0.1.0
