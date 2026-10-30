@@ -6,6 +6,13 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- `pactivasign:test` first checks that the cache store can take the lock used for token refresh. If it cannot,
+  for example the database store without a `cache_locks` table, it prints the fix instead of a raw SQL error:
+  `php artisan cache:table` when neither cache table exists, a migration for `cache_locks` alone when the `cache`
+  table already does, or `PACTIVASIGN_CACHE_STORE=file`.
+
 ## [0.2.0] - 2026-10-30
 
 ### Added

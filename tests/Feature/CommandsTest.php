@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace PactivaSign\Laravel\Tests\Feature;
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use PactivaSign\Key\LocalKey;
 use PactivaSign\Laravel\Events\RecipientViewed;
 use PactivaSign\Laravel\Facades\PactivaSign;
@@ -72,6 +74,42 @@ final class CommandsTest extends TestCase
             ->assertFailed();
     }
 
+    public function testTestExplainsMissingCacheTables(): void
+    {
+        config(['pactivasign.cache_store' => 'database']);
+
+        $this->artisan('pactivasign:test')
+            ->expectsOutputToContain('"database" cache store cannot take locks')
+            ->expectsOutputToContain('php artisan cache:table')
+            ->expectsOutputToContain('PACTIVASIGN_CACHE_STORE=file')
+            ->assertFailed();
+    }
+
+    public function testTestExplainsAMissingLockTableNextToAnExistingCacheTable(): void
+    {
+        config(['pactivasign.cache_store' => 'database']);
+        $this->createCacheTable('cache');
+
+        $this->artisan('pactivasign:test')
+            ->expectsOutputToContain('cache:table will not add it')
+            ->expectsOutputToContain('php artisan make:migration create_cache_locks_table')
+            ->expectsOutputToContain("Schema::create('cache_locks'")
+            ->assertFailed();
+    }
+
+    public function testTestConnectsWhenTheDatabaseStoreCanLock(): void
+    {
+        config(['pactivasign.cache_store' => 'database']);
+        $this->createCacheTable('cache');
+        $this->createCacheTable('cache_locks');
+        $me = json_decode((string) file_get_contents(__DIR__ . '/../Fixtures/me.json'), true);
+        PactivaSign::fake(['GET /api/v1/me' => $me]);
+
+        $this->artisan('pactivasign:test')
+            ->expectsOutputToContain('Connected to PactivaSign.')
+            ->assertSuccessful();
+    }
+
     public function testWebhookTestExplainsAMissingSecret(): void
     {
         config(['pactivasign.webhooks.secret' => null]);
@@ -90,5 +128,19 @@ final class CommandsTest extends TestCase
             ->assertSuccessful();
 
         Event::assertDispatched(RecipientViewed::class);
+    }
+
+    /** The tables from Laravel's cache:table migration. */
+    private function createCacheTable(string $name): void
+    {
+        Schema::create($name, function (Blueprint $table) use ($name): void {
+            $table->string('key')->primary();
+            if ($name === 'cache') {
+                $table->mediumText('value');
+            } else {
+                $table->string('owner');
+            }
+            $table->integer('expiration');
+        });
     }
 }
