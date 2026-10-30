@@ -33,17 +33,16 @@ final class WebhookEventRecord extends Model
     protected $guarded = [];
 
     /**
-     * @return array<string, string>
+     * A property, not the casts() method: Laravel 10 does not read casts().
+     *
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'stale' => 'boolean',
-            'envelope_version' => 'integer',
-            'received_at' => 'datetime',
-            'processed_at' => 'datetime',
-        ];
-    }
+    protected $casts = [
+        'stale' => 'boolean',
+        'envelope_version' => 'integer',
+        'received_at' => 'datetime',
+        'processed_at' => 'datetime',
+    ];
 
     public function event(): WebhookEvent
     {

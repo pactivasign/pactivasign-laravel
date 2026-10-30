@@ -32,7 +32,9 @@ final class WebhookTest extends TestCase
         self::assertSame('envelope.completed', $record->type);
         self::assertSame(4, $record->envelope_version);
         self::assertSame($body, $record->payload);
-        self::assertNotNull($record->processed_at);
+        self::assertFalse($record->stale);
+        self::assertInstanceOf(\Carbon\CarbonInterface::class, $record->received_at);
+        self::assertInstanceOf(\Carbon\CarbonInterface::class, $record->processed_at);
         Event::assertDispatched(WebhookReceived::class, 1);
         Event::assertDispatched(EnvelopeCompleted::class, function (EnvelopeCompleted $event): bool {
             return $event->event->id === 'evt_1'

@@ -52,7 +52,13 @@ final class PactivaSignServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__ . '/../config/pactivasign.php' => config_path('pactivasign.php')], 'pactivasign-config');
-            $this->publishesMigrations([__DIR__ . '/../database/migrations' => database_path('migrations')], 'pactivasign-migrations');
+            $migrations = [__DIR__ . '/../database/migrations' => database_path('migrations')];
+            if (method_exists($this, 'publishesMigrations')) { // @phpstan-ignore function.alreadyNarrowedType
+                $this->publishesMigrations($migrations, 'pactivasign-migrations');
+            } else {
+                // Laravel 10 has no publishesMigrations(): the file keeps its own timestamp.
+                $this->publishes($migrations, 'pactivasign-migrations');
+            }
             $this->commands([
                 Console\KeysCommand::class,
                 Console\TestCommand::class,

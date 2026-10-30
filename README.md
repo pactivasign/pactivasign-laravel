@@ -5,7 +5,7 @@ documents for signature from a facade, and receive verified webhooks as Laravel 
 
 > **Status: pre-release.** Until 1.0, minor versions may change the API.
 
-Requires PHP 8.2+ and Laravel 12 or 13.
+Requires PHP 8.2+ and Laravel 10.48+, 11, 12 or 13.
 
 ## Installation
 

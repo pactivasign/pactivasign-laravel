@@ -6,6 +6,12 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+### Added
+
+- Laravel 10 (10.48+) and Laravel 11 support. PHP 8.2+ is still required, so Laravel 10 apps on PHP 8.1 cannot
+  install it. On Laravel 10, `vendor:publish --tag=pactivasign-migrations` copies the migration with its own
+  timestamp, because `publishesMigrations()` only exists from Laravel 11.
+
 ## [0.1.1] - 2026-10-26
 
 ### Fixed
