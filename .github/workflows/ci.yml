@@ -39,6 +39,19 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: json, openssl, pdo_sqlite
           coverage: none
+      # Laravel 10 and 11 are end-of-life: every release has open security advisories, which Composer
+      # blocks by default. Allow them in these jobs only, so the package is still tested there.
+      - name: Allow end-of-life Laravel releases
+        if: matrix.laravel == '10' || matrix.laravel == '11'
+        run: |
+          php -r '
+            $file = rtrim(shell_exec("composer config --global home"), "\n") . "/config.json";
+            $json = is_file($file) ? json_decode(file_get_contents($file), true) : [];
+            $json["config"]["policy"]["advisories"]["block"] = false;
+            $json["config"]["audit"]["block-insecure"] = false;
+            @mkdir(dirname($file), 0777, true);
+            file_put_contents($file, json_encode($json, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+          '
       - name: Install dependencies
         run: composer update --no-interaction --no-progress --prefer-dist --with "laravel/framework:^${{ matrix.laravel }}.0" ${{ matrix.dependencies == 'lowest' && '--prefer-lowest' || '' }}
       - run: composer validate --no-check-lock
