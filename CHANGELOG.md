@@ -6,6 +6,20 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-25
+
+### Changed
+
+- **Breaking:** requires `pactivasign/pactivasign-php` ^0.2, where the API renamed Organization to Workspace.
+  `$me->organization` is now `$me->workspace`, and every `organizationId` is now `workspaceId`.
+- `pactivasign:test` shows the workspace instead of the organization.
+- `PactivaSignFake::webhook()` builds events with `workspaceId`.
+
+### Added
+
+- `PACTIVASIGN_WORKSPACE_ID` (`pactivasign.workspace_id`): the workspace to work in, for an OAuth client approved for
+  several. `pactivasign:test` lists the approved workspaces, and says which ID to set when one is needed.
+
 ## [0.2.1] - 2026-10-30
 
 ### Changed

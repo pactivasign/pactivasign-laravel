@@ -17,7 +17,7 @@ final class TestCommand extends Command
 {
     protected $signature = 'pactivasign:test';
 
-    protected $description = 'Check the PactivaSign credentials: get a token and show the organization, scopes and limits';
+    protected $description = 'Check the PactivaSign credentials: get a token and show the workspace, approved workspaces, scopes and limits';
 
     public function handle(): int
     {
@@ -32,6 +32,13 @@ final class TestCommand extends Command
             $this->error('PactivaSign connection failed: ' . $e->getMessage());
             if ($e instanceof ApiException) {
                 $this->line('Error code: ' . $e->errorCode);
+                if ($e->errorCode === 'WORKSPACE_REQUIRED') {
+                    $ids = is_array($e->details['workspaceIds'] ?? null) ? $e->details['workspaceIds'] : [];
+                    $this->line('This client is approved for several workspaces. Set PACTIVASIGN_WORKSPACE_ID to one of:');
+                    foreach ($ids as $id) {
+                        $this->line('  ' . (is_string($id) ? $id : ''));
+                    }
+                }
             }
 
             return self::FAILURE;
@@ -41,7 +48,11 @@ final class TestCommand extends Command
         $this->table(['', ''], [
             ['API', $client->environment()->baseUrl],
             ['Environment', $me->environment],
-            ['Organization', sprintf('%s (%s, %s)', $me->organization->name, $me->organization->slug, $me->organization->status->value)],
+            ['Workspace', sprintf('%s (%s, %s)', $me->workspace->name, $me->workspace->slug, $me->workspace->status->value)],
+            ['Approved workspaces', implode("\n", array_map(
+                static fn ($w) => sprintf('%s (%s): %s', $w->name, $w->id, implode(' ', $w->scopes)),
+                $me->workspaces,
+            )) ?: '-'],
             ['Client', $me->client === null ? '-' : sprintf('%s (%s)', $me->client->name, $me->client->clientId)],
             ['Scopes', implode(' ', $me->scopes)],
             ['Plan', sprintf('%s, %s', $me->plan->name, $me->plan->subscriptionStatus->value)],

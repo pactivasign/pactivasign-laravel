@@ -51,7 +51,7 @@ final class KeysCommand extends Command
 
         $this->info('Wrote ' . $clientPath . ' and ' . $dpopPath . ' (mode 0600). Keep them out of version control.');
         $this->newLine();
-        $this->line('Ask a PactivaSign organization admin to register this public key for your OAuth client:');
+        $this->line('Ask a PactivaSign workspace admin to register this public key for your OAuth client:');
         $this->newLine();
         $this->line((string) json_encode($clientKey->registrationJwk(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         $this->newLine();

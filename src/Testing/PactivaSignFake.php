@@ -83,7 +83,7 @@ final class PactivaSignFake implements ClientInterface
             'id' => 'evt_' . bin2hex(random_bytes(8)),
             'type' => 'envelope.completed',
             'occurredAt' => gmdate('Y-m-d\TH:i:s.000\Z'),
-            'organizationId' => '00000000-0000-4000-8000-000000000001',
+            'workspaceId' => '00000000-0000-4000-8000-000000000001',
             'data' => [
                 'envelopeId' => '00000000-0000-4000-8000-000000000002',
                 'version' => 1,

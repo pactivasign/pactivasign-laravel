@@ -23,14 +23,18 @@ php artisan pactivasign:keys
 ```
 
 This writes `storage/pactivasign/client.jwk` and `storage/pactivasign/dpop.jwk` (mode 0600; keep them out of
-git) and prints the public key. Your PactivaSign organization admin registers that public key as an OAuth
-client and gives you its client ID. Then set:
+git) and prints the public key. Your PactivaSign account admin registers that public key as an OAuth
+client, approves it for one or more workspaces, and gives you its client ID. Then set:
 
 ```dotenv
 PACTIVASIGN_BASE_URL=https://pactiva-sandbox-api.pactivasign.com
 PACTIVASIGN_CLIENT_ID=pcl_...
 PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
+# Only when the client is approved for several workspaces (pactivasign:test lists them):
+# PACTIVASIGN_WORKSPACE_ID=
 ```
+
+To work in another workspace for one call, use `PactivaSign::withWorkspace($id)->envelopes->create(...)`.
 
 Check the connection:
 

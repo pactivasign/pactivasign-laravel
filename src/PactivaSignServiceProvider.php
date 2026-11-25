@@ -43,6 +43,7 @@ final class PactivaSignServiceProvider extends ServiceProvider
                 cache: $store,
                 tokenLock: new CacheTokenLock($store),
                 logger: $logger,
+                workspaceId: is_string($config['workspace_id'] ?? null) && $config['workspace_id'] !== '' ? $config['workspace_id'] : null,
             );
         });
         $this->app->alias(Client::class, 'pactivasign');

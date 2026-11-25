@@ -11,10 +11,14 @@ return [
     'base_url' => env('PACTIVASIGN_BASE_URL', \PactivaSign\Environment::SANDBOX_URL),
 
     /*
-    | The OAuth client ID (pcl_...) your organization admin registered, and the scopes to request.
+    | The OAuth client ID (pcl_...) your workspace admin registered, and the scopes to request.
     | The scopes must be a subset of the scopes the client was granted.
     */
     'client_id' => env('PACTIVASIGN_CLIENT_ID'),
+
+    // The workspace to work in, sent as X-Workspace-Id. Needed when the OAuth client is approved
+    // for several workspaces (`php artisan pactivasign:test` lists them); leave empty with one.
+    'workspace_id' => env('PACTIVASIGN_WORKSPACE_ID') ?: null,
 
     'scopes' => array_values(array_filter(explode(' ', (string) env(
         'PACTIVASIGN_SCOPES',

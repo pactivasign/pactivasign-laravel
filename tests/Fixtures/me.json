@@ -1,12 +1,22 @@
 {
     "authKind": "oauth",
     "environment": "sample:Me.environment",
-    "organization": {
+    "workspace": {
         "id": "00000000-0000-4000-8000-000786687180",
-        "name": "sample:Me.organization.name",
-        "slug": "sample:Me.organization.slug",
+        "name": "sample:Me.workspace.name",
+        "slug": "sample:Me.workspace.slug",
         "status": "ACTIVE"
     },
+    "accountId": "00000000-0000-4000-8000-000000000099",
+    "workspaces": [
+        {
+            "id": "00000000-0000-4000-8000-000786687180",
+            "name": "sample:Me.workspaces[].name",
+            "scopes": [
+                "sample:Me.workspaces[].scopes[]"
+            ]
+        }
+    ],
     "client": {
         "clientId": "sample:Me.client.clientId",
         "name": "sample:Me.client.name"
