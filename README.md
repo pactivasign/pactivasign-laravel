@@ -32,8 +32,7 @@ PACTIVASIGN_CLIENT_ID=pcl_...
 PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
 ```
 
-Going live means a new OAuth client registered in production, new keys, and
-`PACTIVASIGN_BASE_URL=https://api.pactivasign.com`. Nothing from the sandbox carries over.
+Start in the sandbox. When you are ready for real signatures, see [Going live](#going-live).
 
 Check the connection:
 
@@ -127,6 +126,52 @@ How deliveries are handled:
 
 `php artisan pactivasign:webhook-test --type=envelope.completed` sends a signed sample through your route,
 locally, to check the wiring.
+
+## Going live
+
+The sandbox and production are separate: nothing carries over, so production needs its own OAuth client, keys
+and webhook subscription. On the production server:
+
+1. Generate production keys:
+
+   ```bash
+   php artisan pactivasign:keys
+   ```
+
+   If this server already has sandbox keys in `storage/pactivasign`, write the production ones elsewhere instead
+   and point the config at them:
+
+   ```bash
+   php artisan pactivasign:keys --dir=storage/pactivasign/production
+   ```
+
+   Use absolute paths, because web requests do not run from the project folder:
+
+   ```dotenv
+   PACTIVASIGN_CLIENT_KEY_PATH=/var/www/your-app/storage/pactivasign/production/client.jwk
+   PACTIVASIGN_DPOP_KEY_PATH=/var/www/your-app/storage/pactivasign/production/dpop.jwk
+   ```
+
+2. Your PactivaSign organization admin registers the printed public key as an OAuth client **in production**
+   and gives you its client ID.
+
+3. Set the production values in `.env`:
+
+   ```dotenv
+   PACTIVASIGN_BASE_URL=https://api.pactivasign.com
+   PACTIVASIGN_CLIENT_ID=pcl_...
+   PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
+   ```
+
+4. Reload the config and check the connection:
+
+   ```bash
+   php artisan config:cache
+   php artisan pactivasign:test
+   ```
+
+5. If you use webhooks, create the subscription again in production (step 3 of [Webhooks](#webhooks)) and set
+   its secret as `PACTIVASIGN_WEBHOOK_SECRET`.
 
 ## Testing your app
 

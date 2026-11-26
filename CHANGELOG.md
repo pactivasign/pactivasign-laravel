@@ -6,6 +6,10 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+### Changed
+
+- README: a "Going live" section with the commands to move from the sandbox to production.
+
 ## [0.2.2] - 2026-11-26
 
 ### Changed
