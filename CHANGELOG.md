@@ -6,8 +6,20 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-26
+
+### Added
+
+- `PACTIVASIGN_ENVIRONMENT` (`pactivasign.environment`): `sandbox` (the default) or `production`, using the
+  SDK's `Environment::sandbox()` and `Environment::production()`. No URL to set to go live.
+
 ### Changed
 
+- `PACTIVASIGN_BASE_URL` is now optional and, when set, used instead of `PACTIVASIGN_ENVIRONMENT`. Apps that
+  set it keep working unchanged. If `PACTIVASIGN_ENVIRONMENT=production` meets a different `base_url` (for
+  example the sandbox default in a `config/pactivasign.php` published before this release), the client refuses
+  to start and says which setting to remove, instead of quietly using the sandbox.
+- Requires `pactivasign/pactivasign-php` ^0.1.1.
 - README: a "Going live" section with the commands to move from the sandbox to production.
 
 ## [0.2.2] - 2026-11-26

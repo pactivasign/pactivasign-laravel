@@ -28,6 +28,42 @@ final class ClientTest extends TestCase
         self::assertSame($client, PactivaSign::getFacadeRoot());
     }
 
+    public function testTheEnvironmentIsChosenByName(): void
+    {
+        config(['pactivasign.base_url' => null, 'pactivasign.environment' => 'production']);
+        $this->app->forgetInstance(Client::class);
+        self::assertSame('https://api.pactivasign.com', $this->app->make(Client::class)->environment()->baseUrl);
+
+        config(['pactivasign.environment' => 'sandbox']);
+        $this->app->forgetInstance(Client::class);
+        self::assertSame('https://pactiva-sandbox-api.pactivasign.com', $this->app->make(Client::class)->environment()->baseUrl);
+
+        config(['pactivasign.environment' => null]);
+        $this->app->forgetInstance(Client::class);
+        self::assertSame('https://pactiva-sandbox-api.pactivasign.com', $this->app->make(Client::class)->environment()->baseUrl);
+    }
+
+    public function testAnUnknownEnvironmentIsReported(): void
+    {
+        config(['pactivasign.base_url' => null, 'pactivasign.environment' => 'staging']);
+        $this->app->forgetInstance(Client::class);
+
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('"sandbox" or "production"');
+        $this->app->make(Client::class);
+    }
+
+    public function testAnOldSandboxBaseUrlCannotHideProduction(): void
+    {
+        // What a config file published before 0.2.3 gives when PACTIVASIGN_BASE_URL is unset.
+        config(['pactivasign.base_url' => 'https://pactiva-sandbox-api.pactivasign.com', 'pactivasign.environment' => 'production']);
+        $this->app->forgetInstance(Client::class);
+
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('config/pactivasign.php');
+        $this->app->make(Client::class);
+    }
+
     public function testKeysCanComeFromFiles(): void
     {
         $dir = sys_get_temp_dir() . '/pactivasign-keys-' . bin2hex(random_bytes(4));

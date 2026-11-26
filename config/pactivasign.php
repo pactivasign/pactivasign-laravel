@@ -5,11 +5,16 @@ declare(strict_types=1);
 return [
 
     /*
-    | The PactivaSign API origin. Tokens are cached per environment. The default is the public
-    | sandbox, where test signers' email is captured and signed PDFs are watermarked. Production is
-    | https://api.pactivasign.com.
+    | Which PactivaSign API to use: "sandbox" (the default: test signers' email is captured and
+    | signed PDFs are watermarked) or "production". Tokens are cached per environment.
     */
-    'base_url' => env('PACTIVASIGN_BASE_URL', \PactivaSign\Environment::SANDBOX_URL),
+    'environment' => env('PACTIVASIGN_ENVIRONMENT', 'sandbox'),
+
+    /*
+    | Only to reach another API origin, such as a local API. When set, it is used instead of
+    | `environment`.
+    */
+    'base_url' => env('PACTIVASIGN_BASE_URL'),
 
     /*
     | The OAuth client ID (pcl_...) your organization admin registered, and the scopes to request.

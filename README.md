@@ -27,7 +27,7 @@ git) and prints the public key. Your PactivaSign organization admin registers th
 client and gives you its client ID. Then set:
 
 ```dotenv
-PACTIVASIGN_BASE_URL=https://pactiva-sandbox-api.pactivasign.com   # production: https://api.pactivasign.com
+PACTIVASIGN_ENVIRONMENT=sandbox          # production when you go live
 PACTIVASIGN_CLIENT_ID=pcl_...
 PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
 ```
@@ -158,7 +158,7 @@ and webhook subscription. On the production server:
 3. Set the production values in `.env`:
 
    ```dotenv
-   PACTIVASIGN_BASE_URL=https://api.pactivasign.com
+   PACTIVASIGN_ENVIRONMENT=production
    PACTIVASIGN_CLIENT_ID=pcl_...
    PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
    ```
@@ -172,6 +172,10 @@ and webhook subscription. On the production server:
 
 5. If you use webhooks, create the subscription again in production (step 3 of [Webhooks](#webhooks)) and set
    its secret as `PACTIVASIGN_WEBHOOK_SECRET`.
+
+If you published `config/pactivasign.php` before 0.2.3, add the new `environment` line from the package's
+config file and remove the old `base_url` default; `pactivasign:test` tells you if they conflict.
+`PACTIVASIGN_BASE_URL` is still available to reach any other API origin.
 
 ## Testing your app
 
