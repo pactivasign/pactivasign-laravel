@@ -27,10 +27,13 @@ git) and prints the public key. Your PactivaSign organization admin registers th
 client and gives you its client ID. Then set:
 
 ```dotenv
-PACTIVASIGN_BASE_URL=https://pactiva-sandbox-api.pactivasign.com
+PACTIVASIGN_BASE_URL=https://pactiva-sandbox-api.pactivasign.com   # production: https://api.pactivasign.com
 PACTIVASIGN_CLIENT_ID=pcl_...
 PACTIVASIGN_SCOPES="documents:create documents:read documents:download signing:create signing:read"
 ```
+
+Going live means a new OAuth client registered in production, new keys, and
+`PACTIVASIGN_BASE_URL=https://api.pactivasign.com`. Nothing from the sandbox carries over.
 
 Check the connection:
 

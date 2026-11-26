@@ -6,7 +6,8 @@ return [
 
     /*
     | The PactivaSign API origin. Tokens are cached per environment. The default is the public
-    | sandbox, where test signers' email is captured and signed PDFs are watermarked.
+    | sandbox, where test signers' email is captured and signed PDFs are watermarked. Production is
+    | https://api.pactivasign.com.
     */
     'base_url' => env('PACTIVASIGN_BASE_URL', \PactivaSign\Environment::SANDBOX_URL),
 

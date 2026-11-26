@@ -6,6 +6,13 @@ All notable changes to this package are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-11-26
+
+### Changed
+
+- The README and config name the production API, `https://api.pactivasign.com`, and the README says what going
+  live takes. No code changes.
+
 ## [0.2.1] - 2026-10-30
 
 ### Changed
